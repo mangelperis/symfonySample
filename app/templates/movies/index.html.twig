@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ title }}!{% endblock %}
+{% block title %}My {{ title }}!{% endblock %}
 
 {% block body %}
     <style>
@@ -18,12 +18,14 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Hello {% if h1 %}{{ h1 }}{% endif %}!</h1>
+        <h1>Found {% if elements %}{{ elements }}{% endif %} movies in the database!</h1>
 
-        This friendly message is coming from:
+
+        Select to see more details:
         <ul>
-            <li>Your controller at <code>/var/www/html/src/Controller/MoviesController.php</code></li>
-            <li>Your template at <code>/var/www/html/templates/movies/index.html.twig</code></li>
+            {% for movie in data %}
+                <li><a href="/movie/{{ movie.id }}"><strong>{{ movie.name }}</strong></a> - {{ movie.score }}</li>
+            {% endfor %}
         </ul>
     </div>
 {% endblock %}
