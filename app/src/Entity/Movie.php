@@ -26,6 +26,9 @@ class Movie
     private ?string $synopsis = null;
 
     #[ORM\Column]
+    private ?int $score = null;
+
+    #[ORM\Column]
     private ?int $visible = 1;
 
     public function getId(): ?int
@@ -85,5 +88,15 @@ class Movie
     public function setSynopsis(?string $synopsis): void
     {
         $this->synopsis = $synopsis;
+    }
+
+    public function getScore(): ?int
+    {
+        return $this->score;
+    }
+
+    public function setScore(?int $score): void
+    {
+        $this->score = $score;
     }
 }
