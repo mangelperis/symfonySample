@@ -23,7 +23,7 @@ class Movie
     private ?string $director = null;
 
     #[ORM\Column(length: 255)]
-    private ?int $synopsis = null;
+    private ?string $synopsis = null;
 
     #[ORM\Column]
     private ?int $visible = 1;
@@ -67,22 +67,22 @@ class Movie
         $this->visible = $visible;
     }
 
-    public function getDirector(): ?int
+    public function getDirector(): ?string
     {
         return $this->director;
     }
 
-    public function setDirector(?int $director): void
+    public function setDirector(?string $director): void
     {
         $this->director = $director;
     }
 
-    public function getSynopsis(): ?int
+    public function getSynopsis(): ?string
     {
         return $this->synopsis;
     }
 
-    public function setSynopsis(?int $synopsis): void
+    public function setSynopsis(?string $synopsis): void
     {
         $this->synopsis = $synopsis;
     }
