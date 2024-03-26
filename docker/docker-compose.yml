@@ -3,7 +3,7 @@ version: "3"
 
 services:
   php-apache:
-    container_name: "${CONTAINER_NAME_PREFIX}-apache-php"
+    container_name: "${CONTAINER_NAME_PREFIX}-php-apache"
     build: php-apache
     #ONLY ON LINUX!!
     extra_hosts:
@@ -13,17 +13,18 @@ services:
       - ${APACHE_LOG_DIR}:/var/log/apache2
     ports:
       - "80:80"
+      - "443:443"
     networks:
       - symfony
 
   mariadb:
     container_name: "${CONTAINER_NAME_PREFIX}-mariadb"
-    image: mariadb:latest
+    image: mariadb:11.1.4
     environment:
       - MARIADB_ROOT_PASSWORD=${ROOT_PASSWORD}
       - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=0
-    #  - MARIADB_USER=${DB_USER}
-    #  - MARIADB_PASSWORD=${DB_PASSWORD}
+      #  - MARIADB_USER=${DB_USER}
+      #  - MARIADB_PASSWORD=${DB_PASSWORD}
       - MARIADB_DATABASE=${DB_NAME}
     volumes:
       - ${PATH_TO_DB_DATA}:/var/lib/mysql:rw
