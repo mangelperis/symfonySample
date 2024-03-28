@@ -1,3 +1,5 @@
+# config/packages/serializer.yaml
+
 framework:
   serializer:
     default_context:

@@ -29,7 +29,7 @@ class MoviesController extends AbstractFOSRestController
         $this->responseHandler = $responseHandler;
     }
 
-    #[Route(path: '/movies', name: 'api_movies_get')]
+    #[Route(path: '/movies', name: 'api_movies_get', methods: ['GET'])]
     public function getMovies(Request $request): Response
     {
         $movies = $this->movieRepository->findAll();
