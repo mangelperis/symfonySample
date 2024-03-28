@@ -1,0 +1,6 @@
+App\Entity\Movie:
+  attributes:
+    id:
+      groups: [ 'movie' ]
+    name:
+      groups: [ 'movie' ]

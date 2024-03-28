@@ -1,0 +1,6 @@
+framework:
+  serializer:
+    default_context:
+      groups: [ 'serialization' ]
+    mapping:
+      paths: [ '%kernel.project_dir%/config/serializer' ]

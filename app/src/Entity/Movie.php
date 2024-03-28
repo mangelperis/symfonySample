@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MovieRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -11,25 +12,64 @@ class Movie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    #[Groups(["serialization"])]
+    private int $id;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[Groups(["serialization"])]
+    private string $name;
 
     #[ORM\Column]
-    private ?int $duration = null;
+    #[Groups(["serialization"])]
+    private int $duration;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["serialization"])]
     private ?string $director = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["serialization"])]
     private ?string $synopsis = null;
 
     #[ORM\Column]
+    #[Groups(["serialization"])]
     private ?int $score = null;
 
     #[ORM\Column]
-    private ?int $visible = 1;
+    private int $visible = 1;
+
+    public function __construct(
+        string  $name,
+        int     $duration,
+        ?string $director,
+        ?string $synopsis,
+        ?int    $score,
+        int     $visible
+    )
+    {
+        $this->name = $name;
+        $this->duration = $duration;
+        $this->director = $director;
+        $this->synopsis = $synopsis;
+        $this->score = $score;
+        $this->visible = $visible;
+    }
+
+    /**
+     * @param object $movie
+     * @return Movie
+     */
+    public function createFromObject(object $movie): Movie
+    {
+        return new self(
+            $movie->name,
+            $movie->duration,
+            $movie->director,
+            $movie->synopsis,
+            $movie->score,
+            $movie->visible
+        );
+    }
 
     public function getId(): ?int
     {
