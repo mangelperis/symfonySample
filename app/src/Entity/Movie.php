@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MovieRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -17,25 +18,35 @@ class Movie
 
     #[ORM\Column(length: 255)]
     #[Groups(["serialization"])]
+    #[Assert\NotBlank]
     private string $name;
 
     #[ORM\Column]
     #[Groups(["serialization"])]
+    #[Assert\Type(type: 'integer')]
     private int $duration;
 
     #[ORM\Column(length: 255)]
     #[Groups(["serialization"])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $director = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(["serialization"])]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $synopsis = null;
 
     #[ORM\Column]
     #[Groups(["serialization"])]
+    #[Assert\Type(type: 'integer')]
+    #[Assert\Range(min: 0, max: 100)]
     private ?int $score = null;
 
     #[ORM\Column]
+    #[Assert\Type(type: 'integer')]
+    #[Assert\Range(min: 0, max: 1)]
     private int $visible = 1;
 
     public function __construct(
