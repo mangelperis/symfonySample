@@ -8,6 +8,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
+#[ORM\Table(name: "movie")]
+#[ORM\UniqueConstraint(name: "unique_name", columns: ["name"])]
 class Movie
 {
     #[ORM\Id]
@@ -49,21 +51,23 @@ class Movie
     #[Assert\Range(min: 0, max: 1)]
     private int $visible = 1;
 
-    public function __construct(
+    public static function create(
         string  $name,
         int     $duration,
         ?string $director,
         ?string $synopsis,
         ?int    $score,
         int     $visible
-    )
+    ): self
     {
-        $this->name = $name;
-        $this->duration = $duration;
-        $this->director = $director;
-        $this->synopsis = $synopsis;
-        $this->score = $score;
-        $this->visible = $visible;
+        $movie = new self();
+        $movie->name = $name;
+        $movie->duration = $duration;
+        $movie->director = $director;
+        $movie->synopsis = $synopsis;
+        $movie->score = $score;
+        $movie->visible = $visible;
+        return $movie;
     }
 
     /**
@@ -104,11 +108,9 @@ class Movie
         return $this->duration;
     }
 
-    public function setDuration(int $duration): static
+    public function setDuration(int $duration): void
     {
         $this->duration = $duration;
-
-        return $this;
     }
 
     public function getVisible(): ?int
