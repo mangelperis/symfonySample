@@ -25,6 +25,7 @@ class Movie
 
     #[ORM\Column]
     #[Groups(["serialization"])]
+    #[Assert\NotBlank]
     #[Assert\Type(type: 'integer')]
     private int $duration;
 
@@ -32,12 +33,14 @@ class Movie
     #[Groups(["serialization"])]
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
+    #[Assert\Type(type: 'string')]
     private ?string $director = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(["serialization"])]
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
+    #[Assert\Type(type: 'string')]
     private ?string $synopsis = null;
 
     #[ORM\Column]
@@ -48,7 +51,8 @@ class Movie
 
     #[ORM\Column]
     #[Assert\Type(type: 'integer')]
-    #[Assert\Range(min: 0, max: 1)]
+    #[Assert\NotNull]
+    #[Assert\Range(notInRangeMessage: 'not in range (0-1)', min: 0, max: 1)]
     private int $visible = 1;
 
     public static function create(
