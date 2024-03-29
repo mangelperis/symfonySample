@@ -2,7 +2,10 @@
 
 framework:
   serializer:
+    enabled: true
+    #enable_annotations: true
     default_context:
-      groups: [ 'serialization' ]
+      default_output_format: json
+    #groups: [ 'serialization' ]
     mapping:
       paths: [ '%kernel.project_dir%/config/serializer' ]
